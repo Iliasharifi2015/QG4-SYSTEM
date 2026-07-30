@@ -168,3 +168,29 @@ const user =
 });
 
 module.exports = router;
+
+const rubika = require("../services/rubika");
+
+router.get("/test-bot", async (req, res) => {
+
+    try {
+
+        await rubika.sendMessage(
+            "CHAT_ID",
+            "سلام از QG4 🚀"
+        );
+
+        res.json({
+            success: true
+        });
+
+    } catch (e) {
+
+        res.status(500).json({
+            success: false,
+            message: e.message
+        });
+
+    }
+
+});
