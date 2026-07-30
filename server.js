@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-
+const rubikaRoutes = require("./routes/rubika");
 const authRoutes = require("./routes/auth");
 const verificationRoutes = require("./routes/verification");
 
@@ -31,6 +31,7 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/rubika", rubikaRoutes);
 app.use("/api/verification", verificationRoutes);
 
 app.use((err, req, res, next) => {
