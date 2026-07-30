@@ -192,4 +192,16 @@ router.get("/test-bot", async (req, res) => {
 
 });
 
+router.get("/updates", async (req, res) => {
+    try {
+        const updates = await rubika.getUpdates();
+        res.json(updates);
+    } catch (e) {
+        res.status(500).json({
+            success: false,
+            message: e.message
+        });
+    }
+});
+
 module.exports = router;
