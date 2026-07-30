@@ -22,8 +22,12 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/api/health", (req, res) => {
-    res.redirect("/api/v1/health");
+app.get("/api/v1/health", (req, res) => {
+    res.json({
+        success: true,
+        status: "online",
+        version: "1.0.0"
+    });
 });
 
 app.use("/api/v1/auth", authRoutes);
