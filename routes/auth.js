@@ -173,7 +173,7 @@ router.get("/test-bot", async (req, res) => {
     try {
 
         await rubika.sendMessage(
-            "CHAT_ID",
+            "ilicraft94",
             "سلام از QG4 🚀"
         );
 
