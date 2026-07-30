@@ -31,8 +31,8 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/rubika", rubikaRoutes);
 app.use("/api/verification", verificationRoutes);
+app.use("/api/v1/rubika", rubikaRoutes);  
 
 app.use((err, req, res, next) => {
   console.error(err);
