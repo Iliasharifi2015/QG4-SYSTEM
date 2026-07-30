@@ -12,4 +12,20 @@ router.post("/webhook", async (req, res) => {
 
 });
 
-module.exports = router;
+async function getUpdates(limit = 10) {
+    try {
+        const { data } = await api.post("/getUpdates", {
+            limit
+        });
+
+        return data;
+    } catch (err) {
+        console.error("Rubika Error:", err.response?.data || err.message);
+        throw err;
+    }
+}
+
+module.exports = {
+    sendMessage,
+    getUpdates
+};
