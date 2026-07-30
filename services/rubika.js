@@ -1,31 +1,35 @@
-/*
-  Rubika integration placeholder.
+const axios = require("axios");
 
-  IMPORTANT:
-  Keep RUBIKA_BOT_TOKEN only in .env / Render Environment Variables.
-  Do not put the token in frontend JavaScript or GitHub.
+const TOKEN = process.env.RUBIKA_BOT_TOKEN;
 
-  The exact Rubika bot API endpoint and payload can vary depending on
-  the bot library/API you use. This service intentionally keeps the
-  transport layer isolated so it can be replaced with the official/
-  supported Rubika bot integration you choose.
-*/
+const api = axios.create({
+    baseURL: `https://botapi.rubika.ir/v3/${TOKEN}`,
+    timeout: 10000
+});
 
-async function sendVerificationCode(rubikaId, code) {
-  if (!process.env.RUBIKA_BOT_TOKEN) {
-    throw new Error("RUBIKA_BOT_TOKEN is not configured.");
-  }
+async function sendMessage(chatId, text) {
 
-  // TODO: Implement the Rubika bot API call here.
-  // Do not log the token or verification code.
-  console.log(`Verification request prepared for Rubika ID: ${rubikaId}`);
+    try {
 
-  return {
-    sent: false,
-    message: "Rubika transport is not configured yet."
-  };
+        const { data } = await api.post("/sendMessage", {
+            chat_id: chatId,
+            text: text
+        });
+
+        return data;
+
+    } catch (err) {
+
+        console.error("Rubika Error:", err.response?.data || err.message);
+
+        throw err;
+
+    }
+
 }
 
 module.exports = {
-  sendVerificationCode
+
+    sendMessage
+
 };
