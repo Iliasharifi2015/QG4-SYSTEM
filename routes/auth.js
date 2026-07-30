@@ -50,8 +50,6 @@ const existing =
         }
     );
 
-    if (lookupError) throw lookupError;
-
     if (existing && existing.length > 0) {
       return res.status(409).json({
         success: false,
@@ -86,7 +84,7 @@ const inserted =
 const data =
     inserted[0];
 
-    if (error) throw error;
+    
 
     return res.status(201).json({
       success: true,
@@ -127,7 +125,7 @@ const users =
 const user =
     users[0] || null;
 
-    if (error) throw error;
+    
 
     if (!user) {
       return res.status(401).json({
@@ -167,7 +165,6 @@ const user =
   }
 });
 
-module.exports = router;
 
 const rubika = require("../services/rubika");
 
@@ -194,3 +191,5 @@ router.get("/test-bot", async (req, res) => {
     }
 
 });
+
+module.exports = router;
