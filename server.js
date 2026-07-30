@@ -23,10 +23,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/health", (req, res) => {
-  res.json({ success: true, status: "online" });
+    res.redirect("/api/v1/health");
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/verification", verificationRoutes);
 
 app.use((err, req, res, next) => {
