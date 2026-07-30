@@ -1,28 +1,27 @@
-const express = require("express");
-const router = express.Router();
+const axios = require("axios");
 
-router.post("/webhook", async (req, res) => {
+const TOKEN = process.env.RUBIKA_BOT_TOKEN;
 
-    console.log("===== RUBIKA UPDATE =====");
-    console.log(JSON.stringify(req.body, null, 2));
-
-    res.json({
-        success: true
-    });
-
+const api = axios.create({
+    baseURL: `https://botapi.rubika.ir/v3/${TOKEN}`,
+    timeout: 10000
 });
 
-async function getUpdates(limit = 10) {
-    try {
-        const { data } = await api.post("/getUpdates", {
-            limit
-        });
+async function sendMessage(chatId, text) {
+    const { data } = await api.post("/sendMessage", {
+        chat_id: chatId,
+        text
+    });
 
-        return data;
-    } catch (err) {
-        console.error("Rubika Error:", err.response?.data || err.message);
-        throw err;
-    }
+    return data;
+}
+
+async function getUpdates(limit = 10) {
+    const { data } = await api.post("/getUpdates", {
+        limit
+    });
+
+    return data;
 }
 
 module.exports = {
